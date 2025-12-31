@@ -46,16 +46,16 @@ clashroyale_community/
 ├── comment_controller.js
 ├── player_controller.js
 ├── public/
-│   ├── index.html
-│   ├── profile.html
-│   ├── liked-posts.html
-│   └── ...
+├── index.html
+├── profile.html
+├── liked-posts.html
+├── ...
 ├── uploads/
+│   ├── profile-view.png
+│   ├── article-list.png
+│   └── liked-posts.png
 ├── clash_community.db
 └── screenshots/
-    ├── profile-view.png
-    ├── article-list.png
-    └── liked-posts.png
 ```
 
 ---
