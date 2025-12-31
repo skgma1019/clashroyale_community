@@ -89,7 +89,7 @@ SELECT * FROM users_tag WHERE user_id = ?;
 ### 📝 게시글 목록
 <img src="./pictures/article-list.png" alt="게시글 목록 화면" width="600"/>
 
-### ✍️ 게시글 작성성
+### ✍️ 게시글 작성
 <img src="./pictures/write-article.png" alt="게시글 작성 화면" width="600"/>
 
 ---
