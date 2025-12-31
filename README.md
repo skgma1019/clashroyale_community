@@ -84,13 +84,13 @@ SELECT * FROM users_tag WHERE user_id = ?;
 > 실제 구현된 페이지의 디자인을 미리 볼 수 있습니다.
 
 ### 🧑‍💼 프로필 조회 화면
-<img src="./screenshots/profile-view.png" alt="프로필 조회 화면" width="600"/>
+<img src="./pictures/profile-view.png" alt="프로필 조회 화면" width="600"/>
 
 ### 📝 게시글 목록
-<img src="./screenshots/article-list.png" alt="게시글 목록 화면" width="600"/>
+<img src="./pictures/article-list.png" alt="게시글 목록 화면" width="600"/>
 
-### ❤️ 좋아요한 게시글
-<img src="./screenshots/liked-posts.png" alt="좋아요한 게시글" width="600"/>
+### ✍️ 게시글 작성성
+<img src="./pictures/write-article.png" alt="게시글 작성 화면" width="600"/>
 
 ---
 
