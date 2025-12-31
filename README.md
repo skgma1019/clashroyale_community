@@ -1,84 +1,108 @@
-<h1>Clash Royale 커뮤니티 웹 서비스</h1>
+# 📱 Clash Royale 커뮤니티 프로젝트
 
-Clash Royale API를 이용해서 유저 정보를 불러오고, 게시글·댓글 기반으로 소통할 수 있는 커뮤니티 웹 서비스를 만든 프로젝트다.
-단순 CRUD만 있는 게 아니라 로그인, 이미지 업로드, 프로필 공개 설정, 좋아요 중복 방지 같은 실사용 서비스 수준 기능들도 넣었다.
+> 클래시로얄 유저 정보를 기반으로 커뮤니티 기능을 구현한 웹 프로젝트입니다.
 
-----------------------------------------------------------------------------------------------------------------------------
+---
 
-<h2>사용기술</h2> <br>
-Backend <br>
--Node.js, Express<br>
--SQLite3<br>
--JWT 인증<br>
--Multer (이미지 업로드)<br>
--Clash Royale API<br>
-Frontend<br>
--HTML / CSS / JavaScript<br>
+## 🔧 주요 기능
 
-----------------------------------------------------------------------------------------------------------------------------
+- 📝 게시판 CRUD (글쓰기, 수정, 삭제, 목록)
+- 👥 회원가입 / 로그인 (JWT 인증)
+- 🏆 Clash Royale API 연동을 통한 사용자 태그/트로피/클랜/아레나 정보 업데이트
+- ❤️ 좋아요 기능 및 내가 좋아요한 게시글 목록 조회
+- 🔒 프로필 공개 여부 설정 기능 (is_public)
+- 🔍 다른 유저 프로필 조회 (공개된 경우)
 
-<h2>주요기능</h2>
-<h4>1. 로그인 / 회원가입 (JWT) </h4>
+---
 
-회원가입 후 로그인하면 JWT 토큰을 발급하고,
-게시글 작성이나 수정 같은 민감한 기능에는 토큰을 확인하도록 되어 있다.
+## 📦 기술 스택
 
-<h4>2. 게시글 기능 (CRUD + 이미지 업로드 + 좋아요)</h4>
+| 영역 | 기술 |
+|------|------|
+| 프론트엔드 | HTML, CSS, JS (Vanilla) |
+| 백엔드 | Node.js, Express |
+| DB | SQLite3 |
+| 인증 | JWT (jsonwebtoken) |
+| API 연동 | Clash Royale Official API |
 
-데크 추천, 메타 카드, 자유 게시판 등 카테고리 분류
+---
 
-이미지 업로드 가능
+## 🔐 .env 환경변수 설정
 
-본인 글만 수정/삭제
+```env
+JWT_SECRET=your_jwt_secret_here
+CLASH_API_TOKEN=your_clash_api_token_here
+```
 
-좋아요 중복 방지 처리
+---
 
-<h4>3. 댓글 기능</h4>
+## 📁 디렉토리 구조
 
-댓글 작성/수정/삭제
+```
+clashroyale_community/
+├── server.js
+├── auth.js
+├── article_controller.js
+├── comment_controller.js
+├── player_controller.js
+├── public/
+│   ├── index.html
+│   ├── profile.html
+│   ├── liked-posts.html
+│   └── ...
+├── uploads/
+├── clash_community.db
+└── screenshots/
+    ├── profile-view.png
+    ├── article-list.png
+    └── liked-posts.png
+```
 
-댓글 좋아요
+---
 
-마찬가지로 본인 댓글만 수정·삭제 가능
+## 🧪 SQLite 쿼리 예시
 
-<h4>4. Clash Royale API 연동</h4>
+- 좋아요한 게시글 확인
+```sql
+SELECT a.id, a.title, a.content, a.likes, a.created_at, ut.nickname
+FROM likes l
+JOIN articles a ON l.article_id = a.id
+JOIN users u ON a.user_id = u.id
+JOIN users_tag ut ON u.id = ut.user_id
+WHERE l.user_id = ?;
+```
 
-플레이어 태그를 입력하면 API에서 전적 정보를 불러온다.
-게시글을 쓸 때 유저 정보 일부를 공개할지 선택하는 기능도 있다.
+- 특정 유저 정보 확인
+```sql
+SELECT * FROM users_tag WHERE user_id = ?;
+```
 
-<h4>5. 유저 프로필 페이지</h4>
+---
 
-나의 프로필을 확인할 수 있다.
+## 🎨 UI 디자인 미리보기
 
-프로필을 공개/비공개로 설정 가능
-→ 비공개인 경우 “비공개 계정입니다” 문구만 보이게 된다.
+> 실제 구현된 페이지의 디자인을 미리 볼 수 있습니다.
 
-게시글이나 댓글에서 작성자를 클릭하면 해당 유저 페이지로 이동한다.
+### 🧑‍💼 프로필 조회 화면
+<img src="./screenshots/profile-view.png" alt="프로필 조회 화면" width="600"/>
 
-<h4>6. 조회수 중복 방지</h4>
+### 📝 게시글 목록
+<img src="./screenshots/article-list.png" alt="게시글 목록 화면" width="600"/>
 
-sessionStorage를 이용해서, 같은 사람이 같은 글을 계속 들어가도 조회수가 올라가지 않도록 처리했다.
+### ❤️ 좋아요한 게시글
+<img src="./screenshots/liked-posts.png" alt="좋아요한 게시글" width="600"/>
 
-<h4>7. 선택적 JWT 인증</h4>
+---
 
-로그인 안 해도 게시글 조회 가능하지만,
-로그인되어 있으면 “내가 좋아요 눌렀는지 여부”도 같이 반환한다.
+## 📌 참고
 
-----------------------------------------------------------------------------------------------------------------------------
+- Clash Royale API: https://developer.clashroyale.com
+- DB 파일: `clash_community.db`
+- 프론트엔드는 정적 HTML + JS로 구성됨 (리액트 아님)
 
-<h3> 프로젝트 진행하면서 배운 점 </h3>
+---
 
-express 프로젝트 기초적인 세팅과 CRUD기능으로 DB와 연결을 할 수 있게 되었다.
-또한 API를 직접 불러오면서 추후에 하는 API와 연결하는 프로젝트의 기초를 쌓았다.
-파일 경로 관리 문제를 처리하면서 미들웨어 구조를 알게되었다.
+## ✍️ 작성자
 
-----------------------------------------------------------------------------------------------------------------------------
-
-<h3>향후 개선 예정 기능</h3>
-
-JWT 만료 시 자동 로그아웃 처리
-
-관리자 페이지
-신고 기능
-반응형 UI
-AWS EC2에 배포해서 실제 서비스처럼 운영해보기
+- GitHub: [skgma1019](https://github.com/skgma1019)
+- 특성화고 진학 후 포트폴리오용 프로젝트로 제작
